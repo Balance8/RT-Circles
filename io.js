@@ -11,6 +11,14 @@ io.on('connection', function (socket) {
     socket.on('remove-circle', function (data) {
         io.emit('remove-circle', data);
     });
+    socket.on('disconnect', function () {
+        delete players[socket.id];
+        io.emit('update-player-list', Object.values(players));
+    });
+    socket.on('register-player', function (data) {
+        players[socket.id] = initials
+        io.emit('update-player-list', Object.values(players));
+    });
 
 
 });

@@ -7,7 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
   socket.on('remove-circle', function (data) {
     circles.innerHTML = '';
   });
+  socket.on('update-player-list', function (data) {
+    var playerList = '<li>' + data.join('</li><li>') + '</li>';
+    players.innerHTML = playerList;
+  });
+
+  do {
+    initials = getInitials();
+  } while (initials.length < 2 || initials.length > 3);
+  // new code below
+  socket.emit('register-player', initials);
+
   var circles = document.getElementById('circles');
+  var players = document.getElementById('players');
   var initials = '';
 
   circles.addEventListener('click', function (evt) {
