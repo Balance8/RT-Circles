@@ -12,11 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     players.innerHTML = playerList;
   });
 
-  do {
-    initials = getInitials();
-  } while (initials.length < 2 || initials.length > 3);
-  // new code below
-  socket.emit('register-player', initials);
 
   var circles = document.getElementById('circles');
   var players = document.getElementById('players');
@@ -45,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var input = prompt("Please enter your initials");
     return input ? input.toUpperCase() : '';
   }
+
+  socket.emit('register-player', initials);
+
 
   function addCircle({ x, y, dia, rgba, initials }) {
     var el = document.createElement('div');
